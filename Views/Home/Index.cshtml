@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet"/>
+
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+<input type="text" id="txtCityId" placeholder="City ID" style="display:none;" />
+<input type="text" id="txtCityName" placeholder="City Name" style="margin-right:5px" />
+<input type="datetime" id="txtDate" placeholder="Date" style="margin-right:5px" />
+@*<input type="text" id="textDegree" placeholder="Degree" style="margin-right:5px" />*@
+
+<button id="btnList" class="btn btn-primary" style="margin-right:5px">Listele</button>
+
+<br />
+<br />
+
+<table id="tblCities" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>City ID</th>
+            <th>City Name</th>
+            <th>Date</th>
+            <th>Degree</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tblCities').DataTable({
+             "processing": true,
+        "serverSide": true,
+        "filter": true,
+           "ajax":{
+              "url":'/api/Cities',
+               "dataSrc":''
+            },
+            columns: [
+                { data: 'cityId' },
+                { data: 'cityName' },
+                { data: 'date' },
+                { data: 'degree' },
+                //{
+                //    data: "id", render: function (data, type, row, meta) {
+                //        return "<button class='btn btn-primary' style='margin-right:5px; onclick=Edit(" + JSON.stringify(row)+")'>Edit</button>; 
+                //    }
+                //}
+            ]
+        });
+
+      
+
+    });
+    function ReloadGrid() {
+        $('tblCities').DataTable().clear();
+        $('tblCities').DataTable().ajax.reload();
+    }
+</script>
